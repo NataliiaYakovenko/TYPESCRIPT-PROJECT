@@ -1,0 +1,14 @@
+команда встановити глобальний typescript
+npm i -g typescript
+---
+запустити компелятор для перетворення ts  на  js
+tsc ./src/index.ts
+---
+запустити компелятор для постійного автоматичного перетворення ts  на  js
+tsc --watch ./src/index.ts
+
+знімається цей код  Ctrl+C
+---
+в html - head - встановлюємо script і приєднуємо js файл
+<script src="./src/index.js"></script>
+---
