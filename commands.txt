@@ -9,6 +9,11 @@ tsc --watch ./src/index.ts
 
 знімається цей код  Ctrl+C
 ---
+запустити компелятор для постійного автоматичного перетворення ts  на  js ES6
+tsc --watch ./src/index.ts -t ES6
+
+знімається цей код  Ctrl+C
+---
 в html - head - встановлюємо script і приєднуємо js файл
 <script src="./src/index.js"></script>
 ---
