@@ -1,7 +1,15 @@
-const hasDriverLicense = false;
-if (hasDriverLicense) {
-    console.log("Driver can drive a transport");
-}
-else {
-    console.log("Driver has not right to drive a transport");
-}
+const form = document.querySelector("#form");
+const result = document.querySelector("#result");
+form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    result.textContent = '';
+    const nameInput = document.querySelector('#name');
+    const ageInput = document.querySelector("#age");
+    const age = Number(ageInput.value);
+    if (age >= 18) {
+        result.textContent = `Hello ${nameInput.value}, you can buy alcohol.`;
+    }
+    else {
+        result.textContent = `Hello ${nameInput.value}, you cannot buy alcohol.`;
+    }
+});
