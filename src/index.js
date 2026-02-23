@@ -5,11 +5,12 @@ form.addEventListener("submit", (event) => {
     result.textContent = '';
     const nameInput = document.querySelector('#name');
     const ageInput = document.querySelector("#age");
+    const name = nameInput.value.trim();
     const age = Number(ageInput.value);
     if (age >= 18) {
-        result.textContent = `Hello ${nameInput.value}, you can buy alcohol.`;
+        result.textContent = `Hello ${name}, you can buy alcohol.`;
     }
     else {
-        result.textContent = `Hello ${nameInput.value}, you cannot buy alcohol.`;
+        result.textContent = `Hello ${name}, you cannot buy alcohol.`;
     }
 });
