@@ -15,16 +15,17 @@ const students = [
         averageGrade: 7,
     },
 ];
-let sumGrade = 0;
+let sumAverageGrade = 0;
+let maxAverageStudent = null;
+let highestAverageGrade = 0;
+let sum = 0;
 for (let student of students) {
-    sumGrade = sumGrade + student.averageGrade;
-}
-const totalGrade = sumGrade / students.length;
-console.log(totalGrade);
-let maxAverageGrade = 0;
-for (let student of students) {
-    if (student.averageGrade > maxAverageGrade) {
-        maxAverageGrade = student.averageGrade;
+    sum = sum + student.averageGrade;
+    if (student.averageGrade > highestAverageGrade) {
+        highestAverageGrade = student.averageGrade;
+        maxAverageStudent = student;
     }
 }
-console.log(maxAverageGrade);
+sumAverageGrade = sum / students.length;
+console.log(sumAverageGrade);
+console.log(maxAverageStudent);

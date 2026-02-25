@@ -1,5 +1,3 @@
-
-
 type Student = {
   name: string;
   course: string;
@@ -24,21 +22,18 @@ const students: Student[] = [
   },
 ];
 
-let sumGrade: number = 0
+let sumAverageGrade: number = 0;
+let maxAverageStudent: Student | null = null;
+let highestAverageGrade: number = 0;
+
+let sum: number = 0;
 for (let student of students) {
-   sumGrade = sumGrade + student.averageGrade
-}
-
-const totalGrade: number = sumGrade/ students.length
-
-console.log(totalGrade)
-
-
-let maxAverageGrade: number = 0;
-for(let student of students ){
-  if(student.averageGrade > maxAverageGrade){
-    maxAverageGrade = student.averageGrade;
+  sum = sum + student.averageGrade;
+  if(student.averageGrade > highestAverageGrade){
+    highestAverageGrade = student.averageGrade;
+    maxAverageStudent =student
   }
 }
-
-console.log(maxAverageGrade)
+sumAverageGrade = sum /students.length
+console.log(sumAverageGrade)
+console.log(maxAverageStudent)
