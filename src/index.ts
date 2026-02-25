@@ -24,7 +24,7 @@ const students: Student[] = [
   },
 ];
 
-let sumGrade: number =0
+let sumGrade: number = 0
 for (let student of students) {
    sumGrade = sumGrade + student.averageGrade
 }
