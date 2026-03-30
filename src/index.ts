@@ -1,51 +1,79 @@
-type Purchase = {
-  product: string;
-  price: number;
-  paymentMethod: "cash" | "card";
-};
+class Account {
+  private _balance: number;
+  public status: string;
 
-function calculateExpenses(purchases: Purchase[]): {
-  total: number;
-  cashTotal: number;
-  cardTotal: number;
-} {
-  let total = 0;
-  let cashTotal = 0;
-  let cardTotal = 0;
+  constructor(initialBalance: number) {
+    this._balance = initialBalance;
+    this.status = "active";
+  }
 
-  for (const purchase of purchases) {
-    total += purchase.price;
+  public deposite(amount: number): void {
+    this._balance += amount;
+  }
 
-    if (purchase.paymentMethod === "cash") {
-      cashTotal += purchase.price;
+  public withdraw(amount: number): void {
+    if (this._balance - amount >= 0) {
+      this._balance -= amount;
     } else {
-      cardTotal += purchase.price;
+      console.log("Insufficient founds");
     }
   }
 
-  return {
-    total,
-    cardTotal,
-    cashTotal,
-  };
+  public get balance(): number {
+    return this._balance;
+  }
 }
 
-const purchases: Purchase[] = [
-  {
-    product: "Laptop",
-    price: 1000,
-    paymentMethod: "card",
-  },
-  {
-    product: "Phone",
-    price: 100,
-    paymentMethod: "cash",
-  },
-  {
-    product: "mouse",
-    price: 50,
-    paymentMethod: "cash",
-  },
-];
+const account = new Account(1000);
+// console.log("Initial balance", account.balance);
+account.deposite(1000);
+// console.log(account.balance);
+account.withdraw(500);
+// console.log(account.balance);
+////////////////////////////////////////////////////////////////////////////////////////////
 
-console.log(calculateExpenses(purchases));
+class Order {
+  private _items: string[];
+  private _total: number;
+  private _status: string;
+
+  constructor() {
+    this._items = [];
+    this._total = 0;
+    this._status = "pending";
+  }
+
+  public addItem(item: string, price: number): void {
+    this._items.push(item);
+    this._total += price;
+  }
+
+  public getOrderInfo(): void {
+    console.log("Items", this._items);
+    console.log("Total", this._total);
+    console.log("Status", this._status);
+  }
+
+  public get items(): string[] {
+    return this._items;
+  }
+
+  public get total(): number {
+    return this._total;
+  }
+
+  public get status(): string {
+    return this._status;
+  }
+
+  public set status(value: string) {}
+}
+
+const order = new Order();
+
+order.addItem("laptop", 25000);
+order.addItem("Phone", 5000);
+
+// order.getOrderInfo();
+
+console.log(order.total);
