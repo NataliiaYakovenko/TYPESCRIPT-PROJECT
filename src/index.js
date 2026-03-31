@@ -1,16 +1,31 @@
-class Animal {
-    constructor(name) {
+class Product {
+    constructor(name, price, quantity) {
         this.name = name;
+        this.price = price;
+        this.quantity = quantity;
     }
 }
-class Dog extends Animal {
-    constructor(name, breed) {
-        super(name);
-        this.breed = breed;
+class Laptop extends Product {
+    constructor(name, price, quantity, screenSize) {
+        super(name, price, quantity);
+        this.screenSize = screenSize;
+        this.screenSize = screenSize;
     }
-    makeSound() {
-        return `${this.name} barks`;
+    getProductDetale() {
+        return `Laptop: ${this.name}, Price: ${this.price}, Quantity: ${this.quantity}, Screen Size: ${this.screenSize}`;
     }
 }
-const dog = new Dog("Pet", "Labrador");
-console.log(dog.makeSound());
+class Mobile extends Product {
+    constructor(name, price, quantity, resolution) {
+        super(name, price, quantity);
+        this.resolution = resolution;
+        this.resolution = resolution;
+    }
+    getProductDetale() {
+        return `Mobile: ${this.name}, Price: ${this.price}, Quantity: ${this.quantity}, Resolution: ${this.resolution}`;
+    }
+}
+const laptop = new Laptop("MacBook Pro", 1999, 10, 16);
+const mobile = new Mobile("iPhone 14", 999, 20, "1170 x 2532");
+console.log(laptop.getProductDetale());
+console.log(mobile.getProductDetale());
