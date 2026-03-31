@@ -1,48 +1,52 @@
-abstract class Product {
+abstract class Item {
   constructor(
-    public name: string,
-    public price: number,
+    public title: string,
+    public pages: number,
     public quantity: number,
   ) {}
 
-  abstract getProductDetale(): string;
+  abstract getItemDetale(): string;
 }
 
-class Laptop extends Product {
+class Book extends Item {
   constructor(
-    name: string,
-    price: number,
+    title: string,
+    pages: number,
     quantity: number,
-    public screenSize: number,
+    public author: string,
   ) {
-    super(name, price, quantity);
-    this.screenSize = screenSize;
+    super(title, pages, quantity);
+    this.author = author;
   }
 
-  getProductDetale(): string {
-    return `Laptop: ${this.name}, Price: ${this.price}, Quantity: ${this.quantity}, Screen Size: ${this.screenSize}`;
+  getItemDetale(): string {
+    return `Book: ${this.title}, Author: ${this.author}, Pages: ${this.pages}, Quantity: ${this.quantity}`;
   }
 }
 
-class Mobile extends Product {
+class Magazine extends Item {
   constructor(
-    name: string,
-    price: number,
+    title: string,
+    pages: number,
     quantity: number,
-    public resolution: string,
+    public publisher: string,
   ) {
-    super(name, price, quantity);
-    this.resolution = resolution;
+    super(title, pages, quantity);
+    this.publisher = publisher;
   }
 
-  getProductDetale(): string {
-    return `Mobile: ${this.name}, Price: ${this.price}, Quantity: ${this.quantity}, Resolution: ${this.resolution}`;
+  getItemDetale(): string {
+    return `Magazine: ${this.title}, Publisher: ${this.publisher}, Pages: ${this.pages}, Quantity: ${this.quantity}`;
   }
 }
 
-const laptop = new Laptop("MacBook Pro", 1999, 10, 16);
+const book = new Book("The Great Gatsby", 180, 3, "F. Scott Fitzgerald");
+const magazine = new Magazine(
+  "National Geographic",
+  100,
+  5,
+  "National Geographic Society",
+);
 
-const mobile = new Mobile("iPhone 14", 999, 20, "1170 x 2532");
-
-console.log(laptop.getProductDetale());
-console.log(mobile.getProductDetale());
+console.log(book.getItemDetale());
+console.log(magazine.getItemDetale());

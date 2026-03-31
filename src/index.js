@@ -1,31 +1,31 @@
-class Product {
-    constructor(name, price, quantity) {
-        this.name = name;
-        this.price = price;
+class Item {
+    constructor(title, pages, quantity) {
+        this.title = title;
+        this.pages = pages;
         this.quantity = quantity;
     }
 }
-class Laptop extends Product {
-    constructor(name, price, quantity, screenSize) {
-        super(name, price, quantity);
-        this.screenSize = screenSize;
-        this.screenSize = screenSize;
+class Book extends Item {
+    constructor(title, pages, quantity, author) {
+        super(title, pages, quantity);
+        this.author = author;
+        this.author = author;
     }
-    getProductDetale() {
-        return `Laptop: ${this.name}, Price: ${this.price}, Quantity: ${this.quantity}, Screen Size: ${this.screenSize}`;
-    }
-}
-class Mobile extends Product {
-    constructor(name, price, quantity, resolution) {
-        super(name, price, quantity);
-        this.resolution = resolution;
-        this.resolution = resolution;
-    }
-    getProductDetale() {
-        return `Mobile: ${this.name}, Price: ${this.price}, Quantity: ${this.quantity}, Resolution: ${this.resolution}`;
+    getItemDetale() {
+        return `Book: ${this.title}, Author: ${this.author}, Pages: ${this.pages}, Quantity: ${this.quantity}`;
     }
 }
-const laptop = new Laptop("MacBook Pro", 1999, 10, 16);
-const mobile = new Mobile("iPhone 14", 999, 20, "1170 x 2532");
-console.log(laptop.getProductDetale());
-console.log(mobile.getProductDetale());
+class Magazine extends Item {
+    constructor(title, pages, quantity, publisher) {
+        super(title, pages, quantity);
+        this.publisher = publisher;
+        this.publisher = publisher;
+    }
+    getItemDetale() {
+        return `Magazine: ${this.title}, Publisher: ${this.publisher}, Pages: ${this.pages}, Quantity: ${this.quantity}`;
+    }
+}
+const book = new Book("The Great Gatsby", 180, 3, "F. Scott Fitzgerald");
+const magazine = new Magazine("National Geographic", 100, 5, "National Geographic Society");
+console.log(book.getItemDetale());
+console.log(magazine.getItemDetale());
