@@ -1,58 +1,39 @@
-class Account {
-    constructor(initialBalance) {
-        this._balance = initialBalance;
-        this.status = "active";
+class Car {
+    constructor(manufacturer, maxSpeed) {
+        this._manufacturer = manufacturer;
+        this._speed = 0;
+        this._maxSpeed = maxSpeed;
     }
-    deposite(amount) {
-        this._balance += amount;
-    }
-    withdraw(amount) {
-        if (this._balance - amount >= 0) {
-            this._balance -= amount;
+    accelearate(speedDelta) {
+        if (this._speed + speedDelta <= this._maxSpeed) {
+            this._speed += speedDelta;
+            return this._speed;
         }
-        else {
-            console.log("Insufficient founds");
-        }
+        this._speed = this._maxSpeed;
+        return this._speed;
     }
-    get balance() {
-        return this._balance;
+    decelerate(speedDelta) {
+        if (this._speed - speedDelta >= 0) {
+            this._speed -= speedDelta;
+            return this._speed;
+        }
+        this._speed = 0;
+        return this._speed;
+    }
+    get speed() {
+        return this._speed;
+    }
+    get manufacturer() {
+        return this._manufacturer;
+    }
+    set manufacturer(value) {
+        this._manufacturer = value;
+    }
+    get maxSpeed() {
+        return this._maxSpeed;
     }
 }
-const account = new Account(1000);
-// console.log("Initial balance", account.balance);
-account.deposite(1000);
-// console.log(account.balance);
-account.withdraw(500);
-// console.log(account.balance);
-////////////////////////////////////////////////////////////////////////////////////////////
-class Order {
-    constructor() {
-        this._items = [];
-        this._total = 0;
-        this._status = "pending";
-    }
-    addItem(item, price) {
-        this._items.push(item);
-        this._total += price;
-    }
-    getOrderInfo() {
-        console.log("Items", this._items);
-        console.log("Total", this._total);
-        console.log("Status", this._status);
-    }
-    get items() {
-        return this._items;
-    }
-    get total() {
-        return this._total;
-    }
-    get status() {
-        return this._status;
-    }
-    set status(value) { }
-}
-const order = new Order();
-order.addItem("laptop", 25000);
-order.addItem("Phone", 5000);
-// order.getOrderInfo();
-console.log(order.total);
+const car = new Car('Lexus', 250);
+car.accelearate(150);
+car.decelerate(303);
+console.log(car.speed);

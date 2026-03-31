@@ -1,79 +1,51 @@
-class Account {
-  private _balance: number;
-  public status: string;
+class Car {
+  private _manufacturer: string;
+  private _speed: number;
+  private readonly _maxSpeed: number;
 
-  constructor(initialBalance: number) {
-    this._balance = initialBalance;
-    this.status = "active";
+  constructor(manufacturer: string, maxSpeed: number) {
+    this._manufacturer = manufacturer;
+    this._speed = 0;
+    this._maxSpeed = maxSpeed;
   }
 
-  public deposite(amount: number): void {
-    this._balance += amount;
-  }
-
-  public withdraw(amount: number): void {
-    if (this._balance - amount >= 0) {
-      this._balance -= amount;
-    } else {
-      console.log("Insufficient founds");
+  public accelearate(speedDelta: number): number {
+    if (this._speed + speedDelta <= this._maxSpeed) {
+      this._speed += speedDelta;
+      return this._speed;
     }
+    this._speed = this._maxSpeed;
+    return this._speed;
   }
 
-  public get balance(): number {
-    return this._balance;
+  public decelerate(speedDelta: number): number {
+    if (this._speed - speedDelta >= 0) {
+      this._speed -= speedDelta;
+      return this._speed;
+    }
+    this._speed = 0;
+    return this._speed;
+  }
+
+  public get speed(): number {
+    return this._speed;
+  }
+
+  public get manufacturer(): string {
+    return this._manufacturer;
+  }
+
+  public set manufacturer(value: string) {
+    this._manufacturer = value;
+  }
+
+  public get maxSpeed(): number {
+    return this._maxSpeed;
   }
 }
 
-const account = new Account(1000);
-// console.log("Initial balance", account.balance);
-account.deposite(1000);
-// console.log(account.balance);
-account.withdraw(500);
-// console.log(account.balance);
-////////////////////////////////////////////////////////////////////////////////////////////
+const  car = new Car('Lexus', 250)
+car.accelearate(150)
+car.decelerate(303)
+console.log(car.speed)
 
-class Order {
-  private _items: string[];
-  private _total: number;
-  private _status: string;
-
-  constructor() {
-    this._items = [];
-    this._total = 0;
-    this._status = "pending";
-  }
-
-  public addItem(item: string, price: number): void {
-    this._items.push(item);
-    this._total += price;
-  }
-
-  public getOrderInfo(): void {
-    console.log("Items", this._items);
-    console.log("Total", this._total);
-    console.log("Status", this._status);
-  }
-
-  public get items(): string[] {
-    return this._items;
-  }
-
-  public get total(): number {
-    return this._total;
-  }
-
-  public get status(): string {
-    return this._status;
-  }
-
-  public set status(value: string) {}
-}
-
-const order = new Order();
-
-order.addItem("laptop", 25000);
-order.addItem("Phone", 5000);
-
-// order.getOrderInfo();
-
-console.log(order.total);
