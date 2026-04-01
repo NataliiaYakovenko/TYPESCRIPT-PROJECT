@@ -1,24 +1,21 @@
-const user1 = {
-    id: 1,
-    name: "Nataliia",
-    email: "natali@gmail.com",
-};
-const Sharick = {
-    nickname: "Sharick",
-    age: 3,
-    breed: "labrador",
-};
-class Post {
-    constructor(content) {
-        this.content = content;
+class CircleImpl {
+    constructor(radius) {
+        this.radius = radius;
     }
-    print() {
-        console.log(this.content);
-    }
-    log() {
-        console.log(this.content);
+    calculateArea() {
+        return Math.PI * this.radius * this.radius;
     }
 }
-const post = new Post("Hello world");
-// console.log(post.print());
-post.log();
+class RectangleImpl {
+    constructor(width, height) {
+        this.width = width;
+        this.height = height;
+    }
+    calculateArea() {
+        return this.width * this.height;
+    }
+}
+const circle = new CircleImpl(5);
+// console.log(circle.calculateArea());
+const rectangle = new RectangleImpl(4, 6);
+console.log(rectangle.calculateArea());

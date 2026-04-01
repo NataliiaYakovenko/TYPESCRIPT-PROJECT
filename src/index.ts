@@ -1,61 +1,36 @@
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  age?: number;
+interface Shape {
+  calculateArea(): number;
 }
 
-const user1: User = {
-  id: 1,
-  name: "Nataliia",
-  email: "natali@gmail.com",
-};
-
-// console.log(user1);
-
-interface Animal {
-  nickname: string;
-  age: number;
+interface Circle extends Shape {
+  radius: number;
 }
 
-interface Dog extends Animal {
-  breed: string;
+interface Rectangle extends Shape {
+  width: number;
+  height: number;
 }
 
-const Sharick: Dog = {
-  nickname: "Sharick",
-  age: 3,
-  breed: "labrador",
-};
-
-// console.log(Sharick);
-/////////////////////////////////////////////////////////////////////////
-
-interface Printable {
-  print(): void;
-}
-
-interface Loggable {
-  log(): void;
-}
-
-class Post implements Printable, Loggable {
-  content: string;
-
-  constructor(content: string) {
-    this.content = content;
-  }
-
-  print() {
-    console.log(this.content);
-  }
-
-  log() {
-    console.log(this.content);
+class CircleImpl implements Circle {
+  constructor(public radius: number) {}
+  calculateArea(): number {
+    return Math.PI * this.radius * this.radius;
   }
 }
 
-const post = new Post("Hello world");
-// console.log(post.print());
+class RectangleImpl implements Rectangle {
+  constructor(
+    public width: number,
+    public height: number,
+  ) {}
 
-post.log()
+  calculateArea(): number {
+    return this.width * this.height;
+  }
+}
+
+const circle = new CircleImpl(5);
+// console.log(circle.calculateArea());
+
+const rectangle = new RectangleImpl(4, 6);
+console.log(rectangle.calculateArea());
