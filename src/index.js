@@ -1,23 +1,34 @@
-const PI = 3.14;
-var Geometry;
-(function (Geometry) {
-    Geometry.PI = 3.14159;
-    function calculateCirccleArea(rudius) {
-        return Geometry.PI * rudius * rudius;
-    }
-    Geometry.calculateCirccleArea = calculateCirccleArea;
-    class Point {
-        constructor(x, y) {
-            this.x = x;
-            this.y = y;
-        }
-        distanceToOrigian() {
-            return Math.sqrt(this.x * this.x + this.y * this.y);
-        }
-    }
-    Geometry.Point = Point;
-})(Geometry || (Geometry = {}));
-console.log('PI:', Geometry.PI);
+// const PI = 3.14
+// namespace Geometry {
+//   export const PI = 3.14159;
+//   export function calculateCirccleArea(rudius: number): number {
+//     return PI * rudius * rudius;
+//   }
+//   export class Point {
+//     constructor(
+//       public x: number,
+//       public y: number,
+//     ) {}
+//     distanceToOrigian(): number {
+//       return Math.sqrt(this.x * this.x + this.y * this.y);
+//     }
+//   }
+// }
+// console.log('PI:', Geometry.PI )
 // console.log(Geometry.calculateCirccleArea(5))
 // const point = new Geometry.Point(3,4)
 // console.log(point.distanceToOrigian())
+var MathFunctions;
+(function (MathFunctions) {
+    MathFunctions.PI = 3.14159;
+    function calculateCirccleArea(rudius) {
+        return MathFunctions.PI * rudius * rudius;
+    }
+    MathFunctions.calculateCirccleArea = calculateCirccleArea;
+    function calculateRectangleArea(length, width) {
+        return length * width;
+    }
+    MathFunctions.calculateRectangleArea = calculateRectangleArea;
+})(MathFunctions || (MathFunctions = {}));
+console.log(MathFunctions.calculateCirccleArea(3));
+console.log(MathFunctions.calculateRectangleArea(2, 6));
