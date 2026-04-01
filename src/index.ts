@@ -1,42 +1,61 @@
-// const PI = 3.14
-
-// namespace Geometry {
-//   export const PI = 3.14159;
-
-//   export function calculateCirccleArea(rudius: number): number {
-//     return PI * rudius * rudius;
-//   }
-
-//   export class Point {
-//     constructor(
-//       public x: number,
-//       public y: number,
-//     ) {}
-//     distanceToOrigian(): number {
-//       return Math.sqrt(this.x * this.x + this.y * this.y);
-//     }
-//   }
-// }
-
-// console.log('PI:', Geometry.PI )
-
-// console.log(Geometry.calculateCirccleArea(5))
-// const point = new Geometry.Point(3,4)
-
-// console.log(point.distanceToOrigian())
-
-namespace MathFunctions {
-  export const PI = 3.14159;
-
-  export function calculateCirccleArea(rudius: number): number {
-    return PI * rudius * rudius;
-  }
-
-  export function calculateRectangleArea(length: number, width: number): number {
-    return length * width;
-  }
-
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  age?: number;
 }
 
-console.log(MathFunctions.calculateCirccleArea(3))
-console.log(MathFunctions.calculateRectangleArea(2,6))
+const user1: User = {
+  id: 1,
+  name: "Nataliia",
+  email: "natali@gmail.com",
+};
+
+// console.log(user1);
+
+interface Animal {
+  nickname: string;
+  age: number;
+}
+
+interface Dog extends Animal {
+  breed: string;
+}
+
+const Sharick: Dog = {
+  nickname: "Sharick",
+  age: 3,
+  breed: "labrador",
+};
+
+// console.log(Sharick);
+/////////////////////////////////////////////////////////////////////////
+
+interface Printable {
+  print(): void;
+}
+
+interface Loggable {
+  log(): void;
+}
+
+class Post implements Printable, Loggable {
+  content: string;
+
+  constructor(content: string) {
+    this.content = content;
+  }
+
+  print() {
+    console.log(this.content);
+  }
+
+  log() {
+    console.log(this.content);
+  }
+}
+
+const post = new Post("Hello world");
+// console.log(post.print());
+
+post.log()
