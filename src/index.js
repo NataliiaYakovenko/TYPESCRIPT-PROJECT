@@ -1,31 +1,23 @@
-class Item {
-    constructor(title, pages, quantity) {
-        this.title = title;
-        this.pages = pages;
-        this.quantity = quantity;
+const PI = 3.14;
+var Geometry;
+(function (Geometry) {
+    Geometry.PI = 3.14159;
+    function calculateCirccleArea(rudius) {
+        return Geometry.PI * rudius * rudius;
     }
-}
-class Book extends Item {
-    constructor(title, pages, quantity, author) {
-        super(title, pages, quantity);
-        this.author = author;
-        this.author = author;
+    Geometry.calculateCirccleArea = calculateCirccleArea;
+    class Point {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+        }
+        distanceToOrigian() {
+            return Math.sqrt(this.x * this.x + this.y * this.y);
+        }
     }
-    getItemDetale() {
-        return `Book: ${this.title}, Author: ${this.author}, Pages: ${this.pages}, Quantity: ${this.quantity}`;
-    }
-}
-class Magazine extends Item {
-    constructor(title, pages, quantity, publisher) {
-        super(title, pages, quantity);
-        this.publisher = publisher;
-        this.publisher = publisher;
-    }
-    getItemDetale() {
-        return `Magazine: ${this.title}, Publisher: ${this.publisher}, Pages: ${this.pages}, Quantity: ${this.quantity}`;
-    }
-}
-const book = new Book("The Great Gatsby", 180, 3, "F. Scott Fitzgerald");
-const magazine = new Magazine("National Geographic", 100, 5, "National Geographic Society");
-console.log(book.getItemDetale());
-console.log(magazine.getItemDetale());
+    Geometry.Point = Point;
+})(Geometry || (Geometry = {}));
+console.log('PI:', Geometry.PI);
+// console.log(Geometry.calculateCirccleArea(5))
+// const point = new Geometry.Point(3,4)
+// console.log(point.distanceToOrigian())
