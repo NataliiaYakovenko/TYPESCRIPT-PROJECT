@@ -1,21 +1,30 @@
-class CircleImpl {
-    constructor(radius) {
-        this.radius = radius;
+// function printValue<T>(value: T): void {
+//   console.log(`Value: ${value}`);
+// }
+// const printValue = <T>(value: T): void => {
+//   console.log(`Value: ${value}`);
+// };
+// printValue(10);
+// printValue("Hello");
+function processValue(value) {
+    if (typeof value === "number") {
+        console.log(`Value from a number: ${value.toFixed(2)}`);
     }
-    calculateArea() {
-        return Math.PI * this.radius * this.radius;
+    else if (typeof value === "string") {
+        console.log(`Value from a string: ${value.toUpperCase()}`);
     }
 }
-class RectangleImpl {
-    constructor(width, height) {
-        this.width = width;
-        this.height = height;
+// processValue(10);
+// processValue("Hello");
+class Box {
+    constructor(value) {
+        this.value = value;
     }
-    calculateArea() {
-        return this.width * this.height;
+    getValue() {
+        return this.value;
     }
 }
-const circle = new CircleImpl(5);
-// console.log(circle.calculateArea());
-const rectangle = new RectangleImpl(4, 6);
-console.log(rectangle.calculateArea());
+const box1 = new Box(10);
+const box2 = new Box("Hello");
+console.log(box1.getValue());
+console.log(box2.getValue());

@@ -1,36 +1,39 @@
-interface Shape {
-  calculateArea(): number;
-}
+// function printValue<T>(value: T): void {
+//   console.log(`Value: ${value}`);
+// }
 
-interface Circle extends Shape {
-  radius: number;
-}
+// const printValue = <T>(value: T): void => {
+//   console.log(`Value: ${value}`);
+// };
 
-interface Rectangle extends Shape {
-  width: number;
-  height: number;
-}
+// printValue(10);
+// printValue("Hello");
 
-class CircleImpl implements Circle {
-  constructor(public radius: number) {}
-  calculateArea(): number {
-    return Math.PI * this.radius * this.radius;
+function processValue<T extends number | string>(value: T): void {
+  if (typeof value === "number") {
+    console.log(`Value from a number: ${value.toFixed(2)}`);
+  } else if (typeof value === "string") {
+    console.log(`Value from a string: ${value.toUpperCase()}`);
   }
 }
 
-class RectangleImpl implements Rectangle {
-  constructor(
-    public width: number,
-    public height: number,
-  ) {}
+// processValue(10);
+// processValue("Hello");
 
-  calculateArea(): number {
-    return this.width * this.height;
+class Box<T> {
+  value: T;
+
+  constructor(value: T) {
+    this.value = value;
+  }
+
+  getValue(): T {
+    return this.value;
   }
 }
 
-const circle = new CircleImpl(5);
-// console.log(circle.calculateArea());
+const box1 = new Box<number>(10);
+const box2 = new Box<string>("Hello");
 
-const rectangle = new RectangleImpl(4, 6);
-console.log(rectangle.calculateArea());
+console.log(box1.getValue());
+console.log(box2.getValue());
