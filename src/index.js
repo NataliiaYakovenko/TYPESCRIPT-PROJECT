@@ -1,30 +1,8 @@
-// function printValue<T>(value: T): void {
-//   console.log(`Value: ${value}`);
-// }
-// const printValue = <T>(value: T): void => {
-//   console.log(`Value: ${value}`);
-// };
-// printValue(10);
-// printValue("Hello");
-function processValue(value) {
-    if (typeof value === "number") {
-        console.log(`Value from a number: ${value.toFixed(2)}`);
-    }
-    else if (typeof value === "string") {
-        console.log(`Value from a string: ${value.toUpperCase()}`);
+class DataMerger {
+    merge(arr1, arr2) {
+        return [...arr1, ...arr2];
     }
 }
-// processValue(10);
-// processValue("Hello");
-class Box {
-    constructor(value) {
-        this.value = value;
-    }
-    getValue() {
-        return this.value;
-    }
-}
-const box1 = new Box(10);
-const box2 = new Box("Hello");
-console.log(box1.getValue());
-console.log(box2.getValue());
+const dataMerger = new DataMerger();
+const result = dataMerger.merge([1, 2, 3], ["a", "b", "c"]);
+console.log(result);
