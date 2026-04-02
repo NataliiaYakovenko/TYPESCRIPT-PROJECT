@@ -1,11 +1,32 @@
-class DataMerger<T0, T1> {
-  merge(arr1: T0[], arr2: T1[]): (T0 | T1)[] {
-    return [...arr1, ...arr2];
+class Stack<T> {
+  private items: T[];
+
+  constructor() {
+    this.items = [];
+  }
+
+  push(item: T): void {
+    this.items.push(item);
+  }
+
+  pop(): T | undefined {
+    return this.items.pop();
   }
 }
 
-const dataMerger = new DataMerger();
+const numberStack = new Stack<number>();
+const stringStack = new Stack<string>();
 
-const result = dataMerger.merge([1, 2, 3], ["a", "b", "c"]);
+numberStack.push(1);
+numberStack.push(2);
+numberStack.push(3);
 
-console.log(result);
+
+
+// console.log(numberStack.pop());
+
+stringStack.push("hello");
+stringStack.push("world");
+stringStack.push('Nataliia');
+
+console.log(stringStack.pop())

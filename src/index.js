@@ -1,8 +1,21 @@
-class DataMerger {
-    merge(arr1, arr2) {
-        return [...arr1, ...arr2];
+class Stack {
+    constructor() {
+        this.items = [];
+    }
+    push(item) {
+        this.items.push(item);
+    }
+    pop() {
+        return this.items.pop();
     }
 }
-const dataMerger = new DataMerger();
-const result = dataMerger.merge([1, 2, 3], ["a", "b", "c"]);
-console.log(result);
+const numberStack = new Stack();
+const stringStack = new Stack();
+numberStack.push(1);
+numberStack.push(2);
+numberStack.push(3);
+// console.log(numberStack.pop());
+stringStack.push("hello");
+stringStack.push("world");
+stringStack.push('Nataliia');
+console.log(stringStack.pop());
