@@ -1,32 +1,101 @@
-class Stack<T> {
-  private items: T[];
+abstract class Server {
+  abstract start(): void;
+  abstract stop(): void;
+}
 
-  constructor() {
-    this.items = [];
+class HTTPServer extends Server {
+  start(): void {
+    console.log("HTTP server started");
   }
-
-  push(item: T): void {
-    this.items.push(item);
-  }
-
-  pop(): T | undefined {
-    return this.items.pop();
+  stop(): void {
+    console.log("HTTP server stopped");
   }
 }
 
-const numberStack = new Stack<number>();
-const stringStack = new Stack<string>();
+class WebSoccetServer extends Server {
+  start(): void {
+    console.log("WebSoccetServer started");
+  }
 
-numberStack.push(1);
-numberStack.push(2);
-numberStack.push(3);
+  stop(): void {
+    console.log("WebSoccetServer stopped");
+  }
+}
+
+const firstHTTPServer = new HTTPServer();
+
+const secondHTTPServer = new HTTPServer();
+
+function addRestart(targetClass: Server): void {
+  (targetClass as any).restart = function () {
+    console.log(`Restart servers restarting ${this.constructor.name}`);
+    this.stop();
+    this.start();
+  };
+}
+
+const firstWebSoccetServer = new WebSoccetServer();
+
+const secondWebSoccetServer = new WebSoccetServer();
+
+function addLoginStart(targetClass: Server): void {
+  const originalStart = targetClass.start.bind(targetClass);
+  const originalStop = targetClass.stop.bind(targetClass);
+
+  targetClass.start = function () {
+    console.log(
+      `${new Date().toLocaleString()} Starting:${this.constructor.name}`,
+    );
+    originalStart();
+  };
+
+  targetClass.stop = function () {
+    console.log(
+      `${new Date().toLocaleString()} Stopping:${this.constructor.name}`,
+    );
+    originalStop();
+  };
+}
+
+function addCheckAccesToStop(targetClass: Server): void {
+  const originalStop = targetClass.stop.bind(targetClass);
+
+  targetClass.stop = function () {
+    console.log(`Checing acces for ${this.constructor.name}`);
+    originalStop();
+  };
+}
+
+addRestart(firstHTTPServer);
+
+addRestart(firstWebSoccetServer);
+
+addLoginStart(firstHTTPServer);
+
+addLoginStart(firstWebSoccetServer);
+
+addCheckAccesToStop(firstHTTPServer);
+
+addCheckAccesToStop(firstWebSoccetServer);
 
 
 
-// console.log(numberStack.pop());
 
-stringStack.push("hello");
-stringStack.push("world");
-stringStack.push('Nataliia');
+console.group("Decorator");
 
-console.log(stringStack.pop())
+console.log(firstHTTPServer);
+firstHTTPServer.start();
+(firstHTTPServer as any).restart();
+
+console.log(firstWebSoccetServer);
+firstWebSoccetServer.start();
+(firstWebSoccetServer as any).restart();
+
+console.groupEnd();
+
+console.group("WithoutDecorator");
+console.log(secondHTTPServer);
+console.log(firstWebSoccetServer);
+secondHTTPServer.start();
+secondWebSoccetServer.start();
+console.groupEnd();
