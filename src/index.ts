@@ -1,57 +1,78 @@
-// tsc --watch .src/index.ts -t ES6 --experimentalDecorators
-
-function classDecorator(constructor: Function) {
-  console.log(`classdecorator called`);
+interface User {
+  id: number;
+  name: string;
+  age: number;
 }
 
-function propertyDecorator(target: any, propertyKey: string) {
-  console.group("PropertyDecorator");
-  console.log(propertyKey);
-  console.dir(target);
-  console.groupEnd();
+const updateUser = (user: Partial<User>) => {};
+
+updateUser({
+  id: 1,
+  name: "Nataliia",
+  age: 42,
+});
+
+updateUser({ id: 2, name: "Roland" });
+
+interface User2 {
+  id?: number;
+  name?: string;
+  age?: number;
 }
 
-function methodDecorator(
-  target: any,
-  propertyKey: string,
-  descriptor: PropertyDescriptor,
-): any {
-  const originalmethod = target;
+const createUser = (user: Required<User2>) => {};
 
-  return (target = function (...args: any[]) {
-    console.log(`Calling with args: ${args}`);
-    return originalmethod.apply(this, args);
-  });
+createUser({ id: 1, name: "Bob" });
+
+interface User3 {
+  id: number;
+  name: string;
 }
 
-@classDecorator
-class User {
-  @propertyDecorator
-  private _nickname: string;
+const user: Readonly<User3> = { id: 1, name: "Alica" };
+user.id = 2;
 
-  constructor(nickname: string) {
-    this._nickname = nickname;
-    console.log("constructor called");
-  }
+type Role = "admin" | "user" | "guest";
 
-  get nickname(): string {
-    return this._nickname;
-  }
+const roles: Record<Role, string> = {
+  admin: "Administrator",
+  user: "Regular User",
+  guest: " Guest User",
+};
 
-  set nickname(value: string) {
-    this._nickname = value;
-  }
-
-  @methodDecorator
-  greet(greeting: string): string {
-    return `${this._nickname}! ${greeting}`;
-  }
+interface User4 {
+  id?: number;
+  name?: string;
+  age?: number;
 }
 
-const nataliia = new User("Nataliia");
-console.log(nataliia.greet("Hello"));
+const user2: Pick<User4, "id" | "name"> = { id: 1, name: "Charli" };
 
-// console.log(nataliia.nickname);
+const user3: Omit<User4, "age"> = { id: 1, name: "David" };
 
-// nataliia.nickname = "Yakovenko";
-// console.log(nataliia.nickname);
+type status = "success" | "error" | "loading";
+
+type nonLoadingStatus = Exclude<status, "loading">;
+
+type mixedType = string | number | boolean;
+type onlyStrings = Extract<mixedType, string>;
+
+const example1: onlyStrings = "Hello type";
+const example2: onlyStrings = 42;
+const example3: onlyStrings = true;
+
+function createUser2() {
+  return {
+    id: 1,
+    name: "Nataliia",
+    age: 42,
+  };
+}
+
+type User5 = ReturnType<typeof createUser2>;
+
+const userTypeTest: User5 = {
+  id: 16,
+  name: "Alice",
+  age: 30,
+};
