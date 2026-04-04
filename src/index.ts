@@ -1,101 +1,57 @@
-abstract class Server {
-  abstract start(): void;
-  abstract stop(): void;
+// tsc --watch .src/index.ts -t ES6 --experimentalDecorators
+
+function classDecorator(constructor: Function) {
+  console.log(`classdecorator called`);
 }
 
-class HTTPServer extends Server {
-  start(): void {
-    console.log("HTTP server started");
+function propertyDecorator(target: any, propertyKey: string) {
+  console.group("PropertyDecorator");
+  console.log(propertyKey);
+  console.dir(target);
+  console.groupEnd();
+}
+
+function methodDecorator(
+  target: any,
+  propertyKey: string,
+  descriptor: PropertyDescriptor,
+): any {
+  const originalmethod = target;
+
+  return (target = function (...args: any[]) {
+    console.log(`Calling with args: ${args}`);
+    return originalmethod.apply(this, args);
+  });
+}
+
+@classDecorator
+class User {
+  @propertyDecorator
+  private _nickname: string;
+
+  constructor(nickname: string) {
+    this._nickname = nickname;
+    console.log("constructor called");
   }
-  stop(): void {
-    console.log("HTTP server stopped");
+
+  get nickname(): string {
+    return this._nickname;
+  }
+
+  set nickname(value: string) {
+    this._nickname = value;
+  }
+
+  @methodDecorator
+  greet(greeting: string): string {
+    return `${this._nickname}! ${greeting}`;
   }
 }
 
-class WebSoccetServer extends Server {
-  start(): void {
-    console.log("WebSoccetServer started");
-  }
+const nataliia = new User("Nataliia");
+console.log(nataliia.greet("Hello"));
 
-  stop(): void {
-    console.log("WebSoccetServer stopped");
-  }
-}
+// console.log(nataliia.nickname);
 
-const firstHTTPServer = new HTTPServer();
-
-const secondHTTPServer = new HTTPServer();
-
-function addRestart(targetClass: Server): void {
-  (targetClass as any).restart = function () {
-    console.log(`Restart servers restarting ${this.constructor.name}`);
-    this.stop();
-    this.start();
-  };
-}
-
-const firstWebSoccetServer = new WebSoccetServer();
-
-const secondWebSoccetServer = new WebSoccetServer();
-
-function addLoginStart(targetClass: Server): void {
-  const originalStart = targetClass.start.bind(targetClass);
-  const originalStop = targetClass.stop.bind(targetClass);
-
-  targetClass.start = function () {
-    console.log(
-      `${new Date().toLocaleString()} Starting:${this.constructor.name}`,
-    );
-    originalStart();
-  };
-
-  targetClass.stop = function () {
-    console.log(
-      `${new Date().toLocaleString()} Stopping:${this.constructor.name}`,
-    );
-    originalStop();
-  };
-}
-
-function addCheckAccesToStop(targetClass: Server): void {
-  const originalStop = targetClass.stop.bind(targetClass);
-
-  targetClass.stop = function () {
-    console.log(`Checing acces for ${this.constructor.name}`);
-    originalStop();
-  };
-}
-
-addRestart(firstHTTPServer);
-
-addRestart(firstWebSoccetServer);
-
-addLoginStart(firstHTTPServer);
-
-addLoginStart(firstWebSoccetServer);
-
-addCheckAccesToStop(firstHTTPServer);
-
-addCheckAccesToStop(firstWebSoccetServer);
-
-
-
-
-console.group("Decorator");
-
-console.log(firstHTTPServer);
-firstHTTPServer.start();
-(firstHTTPServer as any).restart();
-
-console.log(firstWebSoccetServer);
-firstWebSoccetServer.start();
-(firstWebSoccetServer as any).restart();
-
-console.groupEnd();
-
-console.group("WithoutDecorator");
-console.log(secondHTTPServer);
-console.log(firstWebSoccetServer);
-secondHTTPServer.start();
-secondWebSoccetServer.start();
-console.groupEnd();
+// nataliia.nickname = "Yakovenko";
+// console.log(nataliia.nickname);
